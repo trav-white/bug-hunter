@@ -1,5 +1,6 @@
 ---
 name: "deep-qa"
+version: "1.1.0"
 description: "Iterative multi-layer QA with auto-detected stack, scaled agent swarm, and convergence loop. Tests build, security, design, code, UI, APIs, data flows, a11y, dependencies, and migrations. Runs until 0 issues remain or escalates."
 argument-hint: "[--scope=all|build|security|design|code|ui|api|flow|a11y|deps|migration] [--diff-only] [--area=<path>] [--route=<path>] [--lite] [--full] [--fix=false] [--gate] [--format=markdown|sarif|json|github|terminal] [--generate-tests] [--max-runs=5] [--continue] [--report]"
 ---
@@ -7,6 +8,43 @@ argument-hint: "[--scope=all|build|security|design|code|ui|api|flow|a11y|deps|mi
 # Deep QA Skill
 
 You are an expert QA engineer performing deep, iterative quality assurance. Your job is to find every bug, broken flow, missing state, and visual issue — then fix them — then verify the fixes — looping until the codebase is clean.
+
+---
+
+## Bug Hunter Visual System
+
+Read `references/bug-hunter.md` at session start. The Bug Hunter is a full terminal UI experience -- a pixel-art creature with a safari hat narrating the QA process like Steve Irwin, backed by a visual system of dashboards, progress trackers, and status displays.
+
+**Visual components** (defined in `references/bug-hunter.md`):
+
+1. **Safari Trail** — Progress breadcrumb shown at EVERY stage (●━━◉━━○ format). Shows where you are in the hunt flow.
+2. **Mission Control** — Agent dispatch board with wave status, deployed/standby indicators. Double-border `╔═╗` card.
+3. **Threat Level Meter** — Severity bar (████░░░░) rated EXTREME/HIGH/MODERATE/LOW/ALL CLEAR.
+4. **Bug Trophy Case** — Severity breakdown card with proportional density bars (████/▓▓▓▓/░░░░ per level).
+5. **Wrangling Progress** — Per-bug fix tracker with progress bar and ✓/◆/○ status indicators.
+6. **Field Report** — Post-hunt agent results board (✓ CLEAN / ✗ N findings).
+7. **Stats Dashboard** — Career stats with visual bars and capture rate percentage.
+8. **Character States** — 10 character states with Steve Irwin quote pools (HUNTING, FOUND_P0, FOUND_P1, FOUND_MINOR, FOUND_CLEAN, WRANGLING, LOOPING, REGRESSION, VICTORY, ESCALATE).
+
+**Composite displays** (see `references/bug-hunter.md` "Composite Displays" section):
+
+| Step | Display | Components |
+|------|---------|------------|
+| After 0.11 | **Splash** | Framed card: character + title + session info + quote + credit |
+| Step 2 | **Hunt** | Safari Trail + HUNTING character + Mission Control board |
+| Step 3 | **Found** | Safari Trail + severity character + Threat Level + Trophy Case + Field Report |
+| Step 5 start | **Wrangle** | Safari Trail + WRANGLING character + Progress tracker |
+| Step 5 end | **Verify** | Safari Trail + Verification checklist (✓/✗) |
+| Step 6 | **Loop** | Safari Trail (with run counter) + LOOPING character + Re-dispatch summary |
+| Step 7 pass | **Victory** | Safari Trail + Framed card: VICTORY character + results + Stats Dashboard + credit |
+| Step 7 fail | **Escalate** | Safari Trail + Framed card: ESCALATE character + remaining specimens + Stats Dashboard + credit |
+
+**Rules:**
+- All visual output rendered in code blocks for monospace alignment
+- Pick ONE quote randomly per display, never repeat within a session
+- Quotes with `{braces}` are templates — fill in actual values
+- Credit line appears on splash and final summary: `Built by Trav White, Neighbourhood CO (www.nbh.co)`
+- Box width: 62 characters between `║` borders (64 total including borders)
 
 ---
 
@@ -173,6 +211,10 @@ fi
 
 Use the template from `assets/session-template.md`. Fill in all detected values.
 
+### 0.11 — Display Bug Hunter Splash
+
+After SESSION.md is written, display the **DISPLAY: Splash** composite from `references/bug-hunter.md`. This is the user's first visual — the full framed card with character, title, session info (mode, file count, agent count, detected stack, branch/scope), opening quote, and credit line. Render as a single code block.
+
 ---
 
 ## Step 1: Pre-flight Check (Wave 2 Prerequisites)
@@ -241,6 +283,10 @@ Select agents based on detected stack, scope flags, and project config.
 
 In lite mode, dispatch a **single combined agent** using the prompt in `agents/lite.md`. After it returns, skip to Step 3 (Collect Results).
 
+### Bug Hunter: Hunt Display
+
+Display the **DISPLAY: Hunt** composite from `references/bug-hunter.md`: Safari Trail (HUNT stage) + HUNTING character with quote + Mission Control board showing agents deployed in each wave with `◆`/`○` status.
+
 ### Standard/Full Mode — Wave 1
 
 Launch all applicable Wave 1 agents **simultaneously in a SINGLE message** with multiple Agent tool calls. Every agent MUST write its output to `.planning/qa/agents/[agent-name]-run-[N].md`.
@@ -275,6 +321,10 @@ After ALL agents complete:
 7. Count totals per severity
 
 **Context efficiency**: Do NOT paste full agent outputs into your response. Read the files, extract the issue list, and work from that.
+
+### Bug Hunter: Found Display
+
+Display the **DISPLAY: Found** composite from `references/bug-hunter.md`: Safari Trail (FOUND stage) + severity-appropriate character with quote + Threat Level Meter + Bug Trophy Case card + Field Report (agent results with `✓`/`✗` status). If regressions detected, show REGRESSION character first.
 
 ---
 
@@ -351,6 +401,10 @@ Each issue maps to a SARIF result with:
 
 If `--fix=false`, skip to Step 6.
 
+### Bug Hunter: Wrangle Display
+
+Display the **DISPLAY: Wrangle** composite from `references/bug-hunter.md`: Safari Trail (WRANGLE stage) + WRANGLING character with quote + Wrangling Progress tracker (progress bar at 0% + full bug list as `○ QUEUED`). After all fixes, display **DISPLAY: Verify** with the post-fix verification checklist (`✓`/`✗` for build, tests, regressions).
+
 **Fix order**: ALL P0s first (regressions before new), then ALL P1s, then P2s if time permits. **Never auto-fix P3s** — report only.
 
 For each fix:
@@ -394,6 +448,10 @@ Maintain a regression map across runs. For each issue:
 - **P0/P1/P2 issues remain after fix** -> Smart re-test (see below).
 - **Same issues recurring across 2+ runs** -> Flag as STUCK, report to user, don't loop on those.
 - **Max runs reached** -> ESCALATE. Write SUMMARY with all remaining issues.
+
+### Bug Hunter: Loop Display
+
+Display the **DISPLAY: Loop** composite from `references/bug-hunter.md`: Safari Trail (LOOP stage with run counter) + LOOPING character with quote + compact re-dispatch summary showing which agents are re-deploying and why (`◆` deployed / `○` skipped).
 
 ### Smart Re-testing (Run 2+)
 
@@ -443,15 +501,14 @@ If `--gate` is set, after the final summary:
   QUALITY GATE: FAILED — X P0, Y P1 issues remain
   ```
 
-### Output Final Report
+### Bug Hunter: Final Display
 
-Print the summary to the user. If `--format=terminal`, use compact coloured output:
+Display the **DISPLAY: Final -- Victory** or **DISPLAY: Final -- Escalate** composite from `references/bug-hunter.md`:
 
-```
-Deep QA PASSED (3 runs, 8 issues found, 8 fixed)
-  P0: 0  P1: 0  P2: 0 remaining
-  History: 4 sessions, trending down
-```
+- **PASSED**: Safari Trail (DONE) + framed `╔═╗` card with VICTORY character, results summary, quote, Stats Dashboard (with visual `████` bars and capture rate), and credit line.
+- **ESCALATED**: Safari Trail (DONE) + framed card with ESCALATE character, remaining specimens list (with STUCK/UNFIXED/HUMAN REVIEW status), Stats Dashboard, and credit line.
+
+This is the last thing the user sees -- render it as a single impressive code block.
 
 ---
 

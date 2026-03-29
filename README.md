@@ -1,9 +1,12 @@
 # Deep QA — Claude Code Skill
 
+**v1.1.0** | Built by Trav White, [Neighbourhood CO](https://www.nbh.co)
+
 Iterative, multi-layer quality assurance skill for [Claude Code](https://claude.ai/claude-code). Auto-detects tech stack, scales agent count to diff size, and tests build, security, design, code quality, APIs, data flows, accessibility, dependencies, and database migrations. Runs until 0 issues remain or escalates.
 
 ## Features
 
+- **Bug Hunter visual system** — interactive ASCII mascot with safari hat, Steve Irwin-style commentary, dashboards, progress trackers, and 10 character states narrating the QA process
 - **10 specialized QA agents** covering build, security, design, code quality, API/data, UI/UX, flow testing, accessibility, dependency audit, and migration safety
 - **Auto-scales** from lite (1 agent) to full swarm (10+ agents) based on diff size
 - **Stack-adaptive** — auto-detects Next.js, Laravel, Python, Rust, Go, static sites, and more
@@ -83,6 +86,7 @@ deep-qa/
 │   ├── dependency.md             # Agent 9: Dependency Audit
 │   └── migration.md              # Agent 10: Migration Safety
 ├── references/                   # Domain knowledge
+│   ├── bug-hunter.md             # Bug Hunter visual system spec
 │   ├── stack-profiles.md         # Tech stack detection matrix
 │   ├── severity-guide.md         # P0-P3 classification guide
 │   └── critical-rules.md        # Core operational rules
@@ -97,17 +101,50 @@ deep-qa/
     └── setup.md                  # /deep-qa:setup wizard
 ```
 
+## Bug Hunter Visual System
+
+Deep QA includes a full terminal UI experience -- the Bug Hunter, a pixel-art creature with a safari hat that narrates the QA process like Steve Irwin. Every stage of the QA run displays interactive ASCII dashboards:
+
+- **Safari Trail** -- progress breadcrumb showing which stage you're on (`●━━◉━━○`)
+- **Mission Control** -- agent dispatch board with deployment status (`◆` deployed, `✓` clean, `✗` findings)
+- **Threat Level Meter** -- severity gauge with filled bars (`████░░░░`) across 5 levels
+- **Bug Trophy Case** -- severity breakdown with density bars
+- **Wrangling Progress** -- per-bug fix tracker with progress bar
+- **Stats Dashboard** -- career stats, capture rate percentage, streak tracking
+- **10 character states** -- HUNTING, FOUND (P0/P1/minor/clean), WRANGLING, LOOPING, REGRESSION, VICTORY, ESCALATE
+- **Steve Irwin quotes** -- randomized from pools, no repeats within a session
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║                     ___                                      ║
+║                    /   \                                     ║
+║                    _____                                     ║
+║                ___/     \___                                 ║
+║               /             \                                ║
+║              .---------------.                               ║
+║              |   []     []   |                               ║
+║              |      .__      |                               ║
+║              '---------------'                               ║
+║                |||  |||  |||                                  ║
+║                                                              ║
+║          D  E  E  P        Q  A                              ║
+║          B  U  G     H  U  N  T  E  R                       ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+See [`references/bug-hunter.md`](references/bug-hunter.md) for the full visual system specification.
+
 ## How It Works
 
-1. **Setup** (Step 0) — Reads CLAUDE.md, loads project config, detects tech stack, determines scope and mode
+1. **Setup** (Step 0) — Reads CLAUDE.md, loads project config, detects tech stack, determines scope and mode. Displays Bug Hunter splash screen.
 2. **Pre-flight** (Step 1) — Checks Playwright, dev server, SSH availability
-3. **Wave 1** (Step 2) — Dispatches code analysis agents in parallel (build, security, quality, deps, migration)
-4. **Wave 2** (Step 3) — Dispatches runtime agents if prerequisites met (API, UI, flow, a11y)
+3. **Wave 1** (Step 2) — Dispatches code analysis agents in parallel (build, security, quality, deps, migration). Shows Hunt display with Mission Control board.
+4. **Wave 2** (Step 3) — Dispatches runtime agents if prerequisites met (API, UI, flow, a11y). Shows Found display with Threat Level and Trophy Case.
 5. **Collect** (Step 3) — Merges results, filters suppressions, detects regressions
 6. **Report** (Step 4) — Writes run report in all requested formats
-7. **Fix** (Step 5) — Auto-fixes P0-P2 issues, verifies fixes don't regress
-8. **Loop** (Step 6) — Smart re-tests only agents that found issues or whose scope was touched
-9. **Summary** (Step 7) — Final report, history update, auto-commit, quality gate check
+7. **Fix** (Step 5) — Auto-fixes P0-P2 issues, verifies fixes don't regress. Shows Wrangling Progress tracker.
+8. **Loop** (Step 6) — Smart re-tests only agents that found issues or whose scope was touched. Shows Loop display with run counter.
+9. **Summary** (Step 7) — Final report, history update, auto-commit, quality gate check. Shows Victory or Escalate display with Stats Dashboard.
 
 ## Project Configuration
 
