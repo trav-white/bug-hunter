@@ -1,0 +1,487 @@
+---
+name: "deep-qa"
+description: "Iterative multi-layer QA with auto-detected stack, scaled agent swarm, and convergence loop. Tests build, security, design, code, UI, APIs, data flows, a11y, dependencies, and migrations. Runs until 0 issues remain or escalates."
+argument-hint: "[--scope=all|build|security|design|code|ui|api|flow|a11y|deps|migration] [--diff-only] [--area=<path>] [--route=<path>] [--lite] [--full] [--fix=false] [--gate] [--format=markdown|sarif|json|github|terminal] [--generate-tests] [--max-runs=5] [--continue] [--report]"
+---
+
+# Deep QA Skill
+
+You are an expert QA engineer performing deep, iterative quality assurance. Your job is to find every bug, broken flow, missing state, and visual issue — then fix them — then verify the fixes — looping until the codebase is clean.
+
+---
+
+## Arguments
+
+Parse the user's invocation for these flags (all optional):
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--scope=<layer>` | `all` | Focus on specific layer(s): `build`, `security`, `design`, `code`, `ui`, `api`, `flow`, `a11y`, `deps`, `migration`, or `all` |
+| `--continue` | — | Resume from a previous QA session (read `.planning/qa/SESSION.md`) |
+| `--report` | — | Show current QA session status without running a new iteration |
+| `--route=<path>` | — | Focus testing on a specific route (e.g. `--route=/finance`) |
+| `--area=<path>` | — | QA an entire directory/feature area regardless of git diff (e.g. `--area=src/finance`) |
+| `--diff-only` | — | Only QA uncommitted changes (staged + unstaged), not the full branch diff |
+| `--fix=false` | `true` | Report-only mode, don't auto-fix |
+| `--gate` | — | Quality gate mode — exit code 1 if any P0/P1 remains after all runs |
+| `--format=<fmt>` | `markdown` | Output format: `markdown`, `sarif`, `json`, `github`, `terminal` |
+| `--generate-tests` | — | Generate test stubs for untested code paths found during QA |
+| `--max-runs=<n>` | `5` | Maximum iterations before escalating |
+| `--lite` | — | Force lite mode (single combined agent) even if diff is large |
+| `--full` | — | Force full swarm even if diff is small |
+
+If no arguments given, run `--scope=all` on the current branch's changes with auto-detected mode.
+
+---
+
+## Step 0: Session Setup
+
+### 0.1 — Read Project Context
+
+Read `CLAUDE.md` in the current project directory. This is **mandatory** — every project has different standards, tech stack, design system, and hard rules. Extract and note:
+- **Tech stack** (Next.js, Laravel, plain HTML, etc.)
+- **Design system rules** (component imports, tokens, wrappers)
+- **Protected files** (files QA must not modify)
+- **Project-specific patterns** (data fetching conventions, auth model, etc.)
+
+### 0.2 — Load Project QA Config
+
+Check for `.planning/qa/config.md`. If it exists, read it and apply overrides. See `assets/config-template.md` for the format. Config can define:
+- **Severity overrides** — reclassify categories for this project (e.g. "a11y issues are P1")
+- **Excluded paths** — directories/files to skip entirely
+- **Default flags** — project-level defaults for `--scope`, `--fix`, `--format`, etc.
+- **Custom agents** — additional domain-specific QA agents to dispatch alongside built-in ones
+- **Custom rules** — extra checks for built-in agents to include
+
+If no config exists, proceed with defaults. Do NOT create one automatically.
+
+### 0.3 — Load Suppressed Issues
+
+Check for `.planning/qa/suppressed.md`. If it exists, read it. Any issue matching a suppressed entry (by file + category + description pattern) is silently excluded from reports. Suppressed issues have an expiry date — ignore entries older than their expiry.
+
+### 0.4 — Detect Tech Stack
+
+Auto-detect the project's tech stack to determine which agents are relevant.
+
+```bash
+# Check for package managers / frameworks
+ls package.json composer.json Gemfile requirements.txt Cargo.toml go.mod pyproject.toml 2>/dev/null
+
+# If package.json exists, get key deps
+cat package.json | grep -E '"(next|react|vue|svelte|angular|express|fastify|nuxt)"' 2>/dev/null
+
+# Check for TypeScript
+ls tsconfig.json 2>/dev/null
+
+# Check for test runner
+cat package.json | grep -E '"(vitest|jest|mocha|playwright|cypress)"' 2>/dev/null
+
+# Check for ORM / DB
+cat package.json | grep -E '"(drizzle|prisma|sequelize|typeorm|knex)"' 2>/dev/null
+ls database/migrations/ 2>/dev/null  # Laravel
+ls prisma/migrations/ 2>/dev/null    # Prisma
+ls drizzle/ 2>/dev/null              # Drizzle
+
+# Check for lock files to determine package manager
+ls package-lock.json pnpm-lock.yaml yarn.lock bun.lockb 2>/dev/null
+```
+
+Record the **stack profile** in SESSION.md. Consult `references/stack-profiles.md` for the full detection matrix and agent selection rules.
+
+### 0.5 — Check for Existing Session
+
+Look for `.planning/qa/SESSION.md`:
+- If `--continue` flag: read it and resume from the last run number
+- If `--report` flag: read and display the session status, then stop
+- If no flag but session exists and is < 2 hours old: ask user if they want to continue or start fresh
+- Otherwise: start a new session
+
+### 0.6 — Create QA Directory
+
+```bash
+mkdir -p .planning/qa/screenshots .planning/qa/agents
+```
+
+### 0.7 — Determine Code Scope
+
+**If `--area=<path>` is set**: Scope is ALL files under that path, regardless of git status. This is for pre-release full-area audits.
+
+**Otherwise**, detect the correct git base automatically:
+
+```bash
+BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD 2>/dev/null || echo "")
+```
+
+Build the change set based on mode:
+
+**Branch mode** (default):
+```bash
+git diff --name-only ${BASE}...HEAD    # Branch changes vs main
+git diff --name-only                    # Unstaged
+git diff --name-only --cached           # Staged
+```
+
+**Diff-only mode** (`--diff-only`):
+```bash
+git diff --name-only                    # Unstaged only
+git diff --name-only --cached           # Staged only
+```
+
+Build a list of:
+- **Changed files** — test these directly
+- **Blast radius files** — files that import from or are imported by changed files
+- **Affected routes** — any routes that render changed components/data
+- If `--route` specified, narrow to that route + its dependencies
+- **Exclude** any paths listed in project QA config's excluded paths
+
+### 0.8 — Determine QA Mode
+
+Count the scoped files to select the right mode:
+
+| Scoped files | Mode | What happens |
+|--------------|------|-------------|
+| 1-5 files | **Lite** (unless `--full`) | Single combined agent, no waves |
+| 6-20 files | **Standard** | Wave 1 (2-4 agents based on stack), Wave 2 if prerequisites met |
+| 21+ files | **Full** | All relevant agents in both waves |
+
+The `--lite` flag forces lite mode regardless. The `--full` flag forces full swarm regardless.
+The `--area` flag implies `--full` unless `--lite` is explicitly set.
+
+### 0.9 — Run Existing Test Suite (Fail Fast)
+
+**Before spawning any QA agents**, run the project's existing tests:
+
+```bash
+if grep -q '"vitest"' package.json 2>/dev/null; then
+  npx vitest run --reporter=verbose 2>&1
+elif grep -q '"jest"' package.json 2>/dev/null; then
+  npx jest --verbose 2>&1
+elif grep -q '"mocha"' package.json 2>/dev/null; then
+  npx mocha 2>&1
+elif [ -f "composer.json" ] && grep -q '"phpunit"' composer.json 2>/dev/null; then
+  php vendor/bin/phpunit 2>&1
+elif [ -f "pytest.ini" ] || [ -f "pyproject.toml" ]; then
+  python -m pytest --tb=short 2>&1
+fi
+```
+
+- If tests **fail**: report failures immediately as P0 issues. Still proceed with QA agents, but test failures go straight into the run report.
+- If tests **pass**: note "Existing test suite: PASSED" in SESSION.md.
+- If **no test suite found**: note "No test suite detected".
+
+### 0.10 — Write SESSION.md
+
+Use the template from `assets/session-template.md`. Fill in all detected values.
+
+---
+
+## Step 1: Pre-flight Check (Wave 2 Prerequisites)
+
+Before dispatching any agents, check runtime capabilities:
+
+```bash
+# Playwright
+npx playwright --version 2>/dev/null
+PLAYWRIGHT_AVAILABLE=$?
+
+# Dev server (common ports)
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 2>/dev/null
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8000 2>/dev/null
+
+# SSH for remote testing
+ssh -o ConnectTimeout=3 son-of-anton "echo ok" 2>/dev/null
+SSH_AVAILABLE=$?
+```
+
+Record results in SESSION.md pre-flight section.
+
+- **Playwright unavailable**: Skip Agents 6 and 7.
+- **Dev server not running**: Warn user. Offer to start it, or skip Wave 2 runtime agents.
+- **SSH unavailable** (and needed): Agent 5 falls back to code-only analysis.
+
+---
+
+## Step 2: Dispatch Agents
+
+### Agent Selection
+
+Select agents based on detected stack, scope flags, and project config.
+
+**Built-in agents** (see `agents/` directory for full prompts):
+
+| # | Agent | File | Wave | Condition |
+|---|-------|------|------|-----------|
+| 1 | Build & Tests | `agents/build.md` | 1 | Always |
+| 2 | Security & Auth | `agents/security.md` | 1 | Always |
+| 3 | Design System | `agents/design.md` | 1 | Only if CLAUDE.md defines design rules |
+| 4 | Code Quality | `agents/quality.md` | 1 | Always |
+| 5 | API & Data | `agents/api.md` | 2 | If changed files include API routes/endpoints/data-fetching |
+| 6 | UI/UX Visual | `agents/ui.md` | 2 | If Playwright available AND dev server running |
+| 7 | Flow & Integration | `agents/flow.md` | 2 | If Playwright available AND dev server running |
+| 8 | A11y & Performance | `agents/a11y.md` | 2 | If changed files include UI components |
+| 9 | Dependency Audit | `agents/dependency.md` | 1 | If package manager detected AND (`--scope=all` or `--scope=deps`) |
+| 10 | Migration Safety | `agents/migration.md` | 1 | If ORM detected AND migration files in scope |
+
+**Custom agents** from project config: Dispatch alongside built-in agents in the wave specified by the config. Read the prompt from the config file.
+
+**Scope filtering**: If `--scope` is set to a specific layer, only dispatch the matching agent(s):
+- `build` -> Agent 1
+- `security` -> Agent 2
+- `design` -> Agent 3
+- `code` -> Agent 4
+- `api` -> Agent 5
+- `ui` -> Agents 6+7
+- `flow` -> Agent 7
+- `a11y` -> Agent 8
+- `deps` -> Agent 9
+- `migration` -> Agent 10
+- `all` -> All applicable agents
+
+### Lite Mode
+
+In lite mode, dispatch a **single combined agent** using the prompt in `agents/lite.md`. After it returns, skip to Step 3 (Collect Results).
+
+### Standard/Full Mode — Wave 1
+
+Launch all applicable Wave 1 agents **simultaneously in a SINGLE message** with multiple Agent tool calls. Every agent MUST write its output to `.planning/qa/agents/[agent-name]-run-[N].md`.
+
+When constructing each agent's prompt:
+1. Read the agent's prompt template from `agents/[name].md`
+2. Fill in the template variables: `[project directory]`, `[detected stack]`, `[list files]`, `[N]`, etc.
+3. Inject any **custom rules** from project config that apply to this agent's category
+4. Inject **severity overrides** from project config
+
+### Standard/Full Mode — Wave 2
+
+**Gate check**: Only run Wave 2 if:
+1. Build passed in Wave 1 (no P0 build failures)
+2. Pre-flight checks passed for required capabilities
+3. Mode is Standard or Full (never in Lite)
+
+Launch all applicable Wave 2 agents simultaneously.
+
+---
+
+## Step 3: Collect & Merge Results
+
+After ALL agents complete:
+
+1. **Read agent output files** from `.planning/qa/agents/*-run-[N].md`
+2. **Filter suppressed issues** — remove any issue matching entries in `.planning/qa/suppressed.md`
+3. **Deduplicate** — same file+line from multiple agents
+4. **Apply severity overrides** from project config
+5. **Detect regressions** — if Run > 1, compare against previous run's fixed issues. If a previously-fixed issue reappears, auto-escalate to P0 and tag as `REGRESSION`
+6. Sort by severity: P0 -> P1 -> P2 -> P3
+7. Count totals per severity
+
+**Context efficiency**: Do NOT paste full agent outputs into your response. Read the files, extract the issue list, and work from that.
+
+---
+
+## Step 4: Write Run Report
+
+Write `.planning/qa/RUN-[N].md` using the template from `assets/run-report-template.md`.
+
+If `--format` is set to something other than `markdown`, ALSO write the report in the requested format:
+
+| Format | Output file | Description |
+|--------|-------------|-------------|
+| `sarif` | `.planning/qa/RUN-[N].sarif.json` | SARIF v2.1.0 — compatible with GitHub Code Scanning, VS Code SARIF Viewer |
+| `json` | `.planning/qa/RUN-[N].json` | Machine-readable JSON array of issues |
+| `github` | `.planning/qa/RUN-[N].github.md` | GitHub PR review comment annotations format |
+| `terminal` | (stdout only) | Compact coloured terminal output, no file written |
+
+The markdown report is ALWAYS written regardless of `--format`. Additional formats are supplementary.
+
+### SARIF Output Structure
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [{
+    "tool": {
+      "driver": {
+        "name": "deep-qa",
+        "version": "2.0.0",
+        "rules": []
+      }
+    },
+    "results": []
+  }]
+}
+```
+
+Each issue maps to a SARIF result with:
+- `ruleId`: `deep-qa/<category>/<short-id>`
+- `level`: P0/P1 -> `error`, P2 -> `warning`, P3 -> `note`
+- `message.text`: Issue description
+- `locations[0].physicalLocation`: File path and line number
+- `fixes[0]`: Suggested fix if available
+
+### JSON Output Structure
+
+```json
+[
+  {
+    "id": 1,
+    "file": "src/api/deals.ts",
+    "line": 45,
+    "severity": "P1",
+    "category": "security",
+    "description": "...",
+    "fix": "...",
+    "agent": "security",
+    "regression": false,
+    "suppressed": false
+  }
+]
+```
+
+### GitHub Annotations Format
+
+```markdown
+::error file=src/api/deals.ts,line=45::P1 security: description
+::warning file=src/components/Table.tsx,line=89::P2 code: description
+```
+
+---
+
+## Step 5: Fix Issues
+
+If `--fix=false`, skip to Step 6.
+
+**Fix order**: ALL P0s first (regressions before new), then ALL P1s, then P2s if time permits. **Never auto-fix P3s** — report only.
+
+For each fix:
+1. Make the change
+2. Note what was changed in the run report
+3. If a fix is risky or ambiguous, flag it for human review instead of auto-fixing
+
+### Test Gap Detection (`--generate-tests`)
+
+If `--generate-tests` is enabled, after fixing issues:
+1. Identify functions/components in changed files that lack test coverage
+2. Generate test stub files in the project's test directory following existing test patterns
+3. Mark stubs clearly as `// TODO: Deep QA generated stub — fill in assertions`
+4. Report generated stubs in the run report under a "Test Stubs Generated" section
+5. Do NOT count missing tests as issues — stubs are supplementary, not blocking
+
+### Post-Fix Verification
+
+After all fixes:
+1. Run the build command again to verify fixes didn't break anything
+2. Run existing test suite again if it exists
+3. If either fails, the fix introduced a regression — revert and flag for human review
+
+---
+
+## Step 6: Update Session & Loop Decision
+
+Update `SESSION.md` with run results.
+
+### Regression Tracking
+
+Maintain a regression map across runs. For each issue:
+- Track: `issue_key` (file:line:category), `first_seen` (run N), `fixed_in` (run N), `reappeared_in` (run N or null)
+- If an issue was fixed in Run N and reappears in Run N+1, mark as `REGRESSION` and auto-escalate to P0
+- If an issue has been flagged as STUCK for 2+ runs, do not re-attempt fixing — escalate to user
+
+### Convergence Check
+
+- **0 issues found** -> QA PASSED. Write SUMMARY. Done.
+- **Only P3 issues remain** -> QA PASSED (with notes). Write SUMMARY listing P3s as optional.
+- **P0/P1/P2 issues remain after fix** -> Smart re-test (see below).
+- **Same issues recurring across 2+ runs** -> Flag as STUCK, report to user, don't loop on those.
+- **Max runs reached** -> ESCALATE. Write SUMMARY with all remaining issues.
+
+### Smart Re-testing (Run 2+)
+
+Do NOT blindly re-dispatch all agents. Instead:
+
+1. **Always re-run**: Agent 1 (Build) — regression gate, must always pass
+2. **Re-run if they found issues in prior run**: Only re-dispatch agents that reported P0/P1/P2 issues
+3. **Re-run if fixes touched their scope**: If a fix modified a file in an agent's scope, re-run that agent
+4. **Skip**: Agents that reported clean AND whose scope wasn't touched by fixes
+
+Re-test agents must check BOTH their original scope AND any files modified by fixes.
+
+---
+
+## Step 7: Final Summary
+
+When QA passes (or max runs reached), write `.planning/qa/SUMMARY.md` using the template from `assets/summary-template.md`.
+
+### Update History
+
+Append a one-line entry to `.planning/qa/HISTORY.md` (create if it doesn't exist, using `assets/history-template.md` as the header). This enables quality tracking across sessions.
+
+### Auto-Commit (`--fix` enabled and issues were fixed)
+
+After all fixes pass verification, auto-commit with a structured message:
+
+```
+[QA] Fix N issues (category: count, category: count)
+
+Deep QA Run N — [Mode] mode, [X] agents
+- file:line — short description of fix
+- file:line — short description of fix
+```
+
+Commit to the current branch (never main). Include `.planning/qa/` artifacts in a separate commit:
+
+```
+[QA] Deep QA session artifacts — [PASSED|ESCALATED]
+```
+
+### Quality Gate (`--gate`)
+
+If `--gate` is set, after the final summary:
+- If **0 P0 + P1 issues remain**: report GATE PASSED and exit normally
+- If **any P0 or P1 remains**: report GATE FAILED with the issue list and exit with a non-zero indication. Print:
+  ```
+  QUALITY GATE: FAILED — X P0, Y P1 issues remain
+  ```
+
+### Output Final Report
+
+Print the summary to the user. If `--format=terminal`, use compact coloured output:
+
+```
+Deep QA PASSED (3 runs, 8 issues found, 8 fixed)
+  P0: 0  P1: 0  P2: 0 remaining
+  History: 4 sessions, trending down
+```
+
+---
+
+## Suppression Workflow
+
+When the user wants to suppress an issue (e.g. "that's intentional, suppress it"):
+
+1. Read `.planning/qa/suppressed.md` (or create from `assets/suppressed-template.md`)
+2. Add a new row with: file, line, category, description pattern, reason, suppressed by, date, expiry (default: 90 days)
+3. The issue will be filtered out of future runs until the expiry date
+
+To list suppressions: `--report` shows active suppressions count. Full list is in `suppressed.md`.
+
+---
+
+## Critical Rules
+
+Consult `references/critical-rules.md` for the full rule set. Key rules:
+
+1. **Parallel agent calls** — Wave 1 agents are independent, launch all simultaneously. Same for Wave 2.
+2. **Evidence, not opinions** — every issue must include file:line, error output, or screenshot.
+3. **Read CLAUDE.md first** — project-specific rules override generic best practices.
+4. **Severity accuracy** — don't inflate. Consult `references/severity-guide.md`.
+5. **Never auto-fix P3s** — report them, let the user decide.
+6. **Smart re-testing** — Run 2+ only re-dispatches agents that found issues or whose scope was touched.
+7. **Max iterations** — respect `--max-runs`. Don't loop forever.
+8. **Agents write to files** — all agent output goes to `.planning/qa/agents/`. Do NOT carry full reports in main context.
+9. **Respect project boundaries** — only test and fix files in scope. Don't modify protected files.
+10. **Filter suppressions** — always check `suppressed.md` before reporting.
+11. **Track regressions** — fixed-then-reappeared issues auto-escalate to P0.
+12. **Stack-adaptive prompts** — agent prompts must reference detected tech stack.
+13. **Honour project config** — severity overrides, custom rules, excluded paths, and custom agents all take precedence.
+14. **History is append-only** — always update `HISTORY.md` at session end.
