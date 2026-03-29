@@ -19,7 +19,7 @@
 
   <!-- Terminal content -->
   <text font-family="'Courier New', 'SF Mono', monospace" font-size="13" xml:space="preserve">
-    <tspan x="30" y="65" fill="#565f89">$</tspan><tspan fill="#7aa2f7"> /deep-qa</tspan>
+    <tspan x="30" y="65" fill="#565f89">$</tspan><tspan fill="#7aa2f7"> /bug-hunter</tspan>
     <tspan x="30" y="90" fill="#3d59a1">╔══════════════════════════════════════════════════════════════╗</tspan>
     <tspan x="30" y="108" fill="#3d59a1">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="126" fill="#3d59a1">║</tspan><tspan fill="#9ece6a">                     ___                                      </tspan><tspan fill="#3d59a1">║</tspan>

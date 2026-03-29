@@ -185,9 +185,9 @@ Deep QA initialized for [project name]
   Custom:     0 custom agents, 2 custom rules
   Gate:       enabled
 
-  Run /deep-qa to start your first QA session.
-  Run /deep-qa --report to check session status.
-  Run /deep-qa:setup to reconfigure.
+  Run /bug-hunter to start your first QA session.
+  Run /bug-hunter --report to check session status.
+  Run /bug-hunter:setup to reconfigure.
 ```
 
 Offer to commit the QA config files:

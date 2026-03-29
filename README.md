@@ -64,25 +64,25 @@ Drop it in and you're ready to hunt:
 
 ```bash
 # Global install -- available across all projects
-cp -r deep-qa ~/.claude/commands/
+cp -r bug-hunter ~/.claude/commands/
 
 # Project-specific install -- just this repo
-cp -r deep-qa <your-project>/.claude/commands/
+cp -r bug-hunter <your-project>/.claude/commands/
 ```
 
 ## Usage
 
 ```bash
-/deep-qa                          # Full safari -- hunt everything
-/deep-qa:setup                    # First-time base camp setup
-/deep-qa --scope=security         # Target specific species
-/deep-qa --area=src/finance       # Hunt an entire territory
-/deep-qa --diff-only              # Only uncommitted changes
-/deep-qa --fix=false              # Recon only -- report, don't wrangle
-/deep-qa --gate --format=sarif    # CI quality gate mode
-/deep-qa --generate-tests         # Generate test stubs
-/deep-qa --continue               # Resume a previous expedition
-/deep-qa --report                 # Check safari status
+/bug-hunter                          # Full safari -- hunt everything
+/bug-hunter:setup                    # First-time base camp setup
+/bug-hunter --scope=security         # Target specific species
+/bug-hunter --area=src/finance       # Hunt an entire territory
+/bug-hunter --diff-only              # Only uncommitted changes
+/bug-hunter --fix=false              # Recon only -- report, don't wrangle
+/bug-hunter --gate --format=sarif    # CI quality gate mode
+/bug-hunter --generate-tests         # Generate test stubs
+/bug-hunter --continue               # Resume a previous expedition
+/bug-hunter --report                 # Check safari status
 ```
 
 ## How the Safari Works
@@ -149,7 +149,7 @@ Not all specimens are created equal.
 <summary><strong>Directory Structure</strong></summary>
 
 ```
-deep-qa/
+bug-hunter/
 ├── SKILL.md                      # The safari playbook
 ├── agents/                       # Agent field manuals
 │   ├── lite.md                   # Solo scout (small diffs)
@@ -185,7 +185,7 @@ deep-qa/
 <details>
 <summary><strong>Project Configuration</strong></summary>
 
-Every habitat is different. Run `/deep-qa:setup` for the guided wizard, or hand-craft `.planning/qa/config.md`:
+Every habitat is different. Run `/bug-hunter:setup` for the guided wizard, or hand-craft `.planning/qa/config.md`:
 
 ```markdown
 ## Severity Overrides

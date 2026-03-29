@@ -1,5 +1,5 @@
 ---
-name: "deep-qa"
+name: "bug-hunter"
 version: "1.2.0"
 description: "Bug Hunter -- iterative multi-layer QA with auto-detected stack, scaled agent swarm, convergence loop, and a safari mascot narrating the whole thing. Hunts down bugs across build, security, design, code, UI, APIs, data flows, a11y, dependencies, and migrations. Runs until the habitat is clean or escalates."
 argument-hint: "[--scope=all|build|security|design|code|ui|api|flow|a11y|deps|migration] [--diff-only] [--area=<path>] [--route=<path>] [--lite] [--full] [--fix=false] [--gate] [--format=markdown|sarif|json|github|terminal] [--generate-tests] [--max-runs=5] [--continue] [--report]"
@@ -378,7 +378,7 @@ The markdown report is ALWAYS written regardless of `--format`. Additional forma
   "runs": [{
     "tool": {
       "driver": {
-        "name": "deep-qa",
+        "name": "bug-hunter",
         "version": "2.0.0",
         "rules": []
       }
@@ -389,7 +389,7 @@ The markdown report is ALWAYS written regardless of `--format`. Additional forma
 ```
 
 Each issue maps to a SARIF result with:
-- `ruleId`: `deep-qa/<category>/<short-id>`
+- `ruleId`: `bug-hunter/<category>/<short-id>`
 - `level`: P0/P1 -> `error`, P2 -> `warning`, P3 -> `note`
 - `message.text`: Issue description
 - `locations[0].physicalLocation`: File path and line number

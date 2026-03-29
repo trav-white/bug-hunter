@@ -62,4 +62,4 @@ Initial release.
 - Historical tracking and regression detection
 - Auto-commit fixes with structured messages
 - Test stub generation
-- Setup wizard (`/deep-qa:setup`)
+- Setup wizard (`/bug-hunter:setup`)
