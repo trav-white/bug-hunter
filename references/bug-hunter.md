@@ -72,14 +72,14 @@ Agent dispatch board. Display when dispatching agents (Step 2). Show actual agen
 ║  MISSION CONTROL                                             ║
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
-║  WAVE 1  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║
+║  WAVE 1  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━     ║
 ║                                                              ║
-║  ◆ Agent 1  Build & Tests         DEPLOYED  ▸▸▸             ║
-║  ◆ Agent 2  Security & Auth       DEPLOYED  ▸▸▸             ║
-║  ◆ Agent 4  Code Quality          DEPLOYED  ▸▸▸             ║
-║  ◆ Agent 9  Dependencies          DEPLOYED  ▸▸▸             ║
+║  ◆ Agent 1  Build & Tests         DEPLOYED  ▸▸▸              ║
+║  ◆ Agent 2  Security & Auth       DEPLOYED  ▸▸▸              ║
+║  ◆ Agent 4  Code Quality          DEPLOYED  ▸▸▸              ║
+║  ◆ Agent 9  Dependencies          DEPLOYED  ▸▸▸              ║
 ║                                                              ║
-║  WAVE 2  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║
+║  WAVE 2  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━     ║
 ║                                                              ║
 ║  ○ Agent 5  API & Data            AWAITING WAVE 1            ║
 ║  ○ Agent 7  Flow & Integration    AWAITING WAVE 1            ║
@@ -97,18 +97,18 @@ When Wave 1 completes and Wave 2 dispatches, update the board:
 ║  MISSION CONTROL                                             ║
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
-║  WAVE 1  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  COMPLETE  ║
+║  WAVE 1  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  COMPLETE    ║
 ║                                                              ║
 ║  ✓ Agent 1  Build & Tests         CLEAN                      ║
 ║  ✗ Agent 2  Security & Auth       2 findings                 ║
 ║  ✗ Agent 4  Code Quality          1 finding                  ║
 ║  ✓ Agent 9  Dependencies          CLEAN                      ║
 ║                                                              ║
-║  WAVE 2  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║
+║  WAVE 2  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━     ║
 ║                                                              ║
-║  ◆ Agent 5  API & Data            DEPLOYED  ▸▸▸             ║
-║  ◆ Agent 7  Flow & Integration    DEPLOYED  ▸▸▸             ║
-║  ◆ Agent 8  A11y & Performance    DEPLOYED  ▸▸▸             ║
+║  ◆ Agent 5  API & Data            DEPLOYED  ▸▸▸              ║
+║  ◆ Agent 7  Flow & Integration    DEPLOYED  ▸▸▸              ║
+║  ◆ Agent 8  A11y & Performance    DEPLOYED  ▸▸▸              ║
 ║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
@@ -141,9 +141,9 @@ Severity breakdown card with density bars. Display after collecting results. Bar
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
 ║  ████  P0  CRITICAL  ██████████████████████████   {count}    ║
-║  ▓▓▓▓  P1  SERIOUS   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓        {count}    ║
-║  ░░░░  P2  MODERATE  ░░░░░░░░░░░                 {count}    ║
-║        P3  MINOR                                 {count}    ║
+║  ▓▓▓▓  P1  SERIOUS   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓        {count}       ║
+║  ░░░░  P2  MODERATE  ░░░░░░░░░░░                 {count}     ║
+║        P3  MINOR                                 {count}     ║
 ║                                                              ║
 ║  Total: {total} bugs spotted in the wild                     ║
 ║                                                              ║
@@ -188,7 +188,7 @@ Enhanced stats with visual bars. Display at session end if HISTORY.md has entrie
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
-║  B U G   H U N T E R   S T A T S                            ║
+║  B U G   H U N T E R   S T A T S                             ║
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
 ║  Safari missions    {n}   {bar}                              ║
@@ -492,14 +492,14 @@ The first thing the user sees. Full framed card with character, title, session i
 ║              |   []     []   |                               ║
 ║              |      .__      |                               ║
 ║              '---------------'                               ║
-║                |||  |||  |||                                  ║
+║                |||  |||  |||                                 ║
 ║                                                              ║
 ║          D  E  E  P        Q  A                              ║
-║          B  U  G     H  U  N  T  E  R                       ║
+║          B  U  G     H  U  N  T  E  R                        ║
 ║                                                              ║
-║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ║
+║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
 ║                                                              ║
-║  Mode:  {mode}  |  Files: {count}  |  Agents: {count}       ║
+║  Mode:  {mode}  |  Files: {count}  |  Agents: {count}        ║
 ║  Stack: {detected stack summary}                             ║
 ║  Scope: {branch or area}                                     ║
 ║                                                              ║
@@ -630,12 +630,12 @@ Safari Trail (DONE stage) + Full framed card with VICTORY character, results sum
 ║    | ^^    ^^ |      Deep QA PASSED                          ║
 ║    |    __    |      {r} runs | {f} found | {x} fixed        ║
 ║    '----------'                                              ║
-║     \|| || ||/       P0: 0  P1: 0  P2: 0 remaining          ║
+║     \|| || ||/       P0: 0  P1: 0  P2: 0 remaining           ║
 ║                                                              ║
 ║    "{selected VICTORY quote}"                                ║
 ║                                                              ║
 ╠══════════════════════════════════════════════════════════════╣
-║  B U G   H U N T E R   S T A T S                            ║
+║  B U G   H U N T E R   S T A T S                             ║
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
 ║  Safari missions    {n}   {bar}                              ║
@@ -667,7 +667,7 @@ Same frame structure but with ESCALATE character and remaining issue summary:
 ║    | ??    ?? |      Deep QA ESCALATED                       ║
 ║    |    ~~    |      {r} runs | {f} found | {x} fixed        ║
 ║    '----------'                                              ║
-║     ||| || |||       P0: {n}  P1: {n}  P2: {n} remaining    ║
+║     ||| || |||       P0: {n}  P1: {n}  P2: {n} remaining     ║
 ║                                                              ║
 ║    "{selected ESCALATE quote}"                               ║
 ║                                                              ║
@@ -680,7 +680,7 @@ Same frame structure but with ESCALATE character and remaining issue summary:
 ║  ...                                                         ║
 ║                                                              ║
 ╠══════════════════════════════════════════════════════════════╣
-║  B U G   H U N T E R   S T A T S                            ║
+║  B U G   H U N T E R   S T A T S                             ║
 ╠══════════════════════════════════════════════════════════════╣
 ║                                                              ║
 ║  (same stats dashboard as Victory)                           ║

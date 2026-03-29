@@ -32,20 +32,20 @@
     <tspan x="30" y="192" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    | ^^    ^^ |</tspan><tspan fill="#c0caf5">      Deep QA PASSED                          </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="210" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    |    __    |</tspan><tspan fill="#c0caf5">      2 runs | 7 found | 7 fixed              </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="228" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    '----------'                                              </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="246" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">     \|| || ||/</tspan><tspan fill="#c0caf5">       P0: 0  P1: 0  P2: 0 remaining          </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="246" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">     \|| || ||/</tspan><tspan fill="#c0caf5">       P0: 0  P1: 0  P2: 0 remaining           </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="264" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="282" fill="#9ece6a">║</tspan><tspan fill="#e0af68">    "What a beauty! Not a single P0 left in the wild!"        </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="300" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="318" fill="#9ece6a">╠══════════════════════════════════════════════════════════════╣</tspan>
-    <tspan x="30" y="336" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  B U G   H U N T E R   S T A T S                            </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="336" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  B U G   H U N T E R   S T A T S                             </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="354" fill="#9ece6a">╠══════════════════════════════════════════════════════════════╣</tspan>
     <tspan x="30" y="372" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="390" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Safari missions    3   </tspan><tspan fill="#7aa2f7">████████████████</tspan><tspan fill="#c0caf5">                      </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="408" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Bugs captured     12   </tspan><tspan fill="#7aa2f7">████████████████████████████████</tspan><tspan fill="#c0caf5">  </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="426" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Clean sweeps       2   </tspan><tspan fill="#7aa2f7">██████████</tspan><tspan fill="#c0caf5">                              </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="444" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Biggest haul       7   </tspan><tspan fill="#7aa2f7">██████████████████</tspan><tspan fill="#c0caf5">                  </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="462" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Current streak     2   </tspan><tspan fill="#7aa2f7">██████████</tspan><tspan fill="#c0caf5">                              </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="480" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Capture rate     100%  </tspan><tspan fill="#9ece6a">████████████████████████████████</tspan><tspan fill="#c0caf5">  </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="390" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Safari missions    3   </tspan><tspan fill="#7aa2f7">████████████████</tspan><tspan fill="#c0caf5">                     </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="408" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Bugs captured     12   </tspan><tspan fill="#7aa2f7">████████████████████████████████</tspan><tspan fill="#c0caf5">     </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="426" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Clean sweeps       2   </tspan><tspan fill="#7aa2f7">██████████</tspan><tspan fill="#c0caf5">                           </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="444" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Biggest haul       7   </tspan><tspan fill="#7aa2f7">██████████████████</tspan><tspan fill="#c0caf5">                   </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="462" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Current streak     2   </tspan><tspan fill="#7aa2f7">██████████</tspan><tspan fill="#c0caf5">                           </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="480" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Capture rate     100%  </tspan><tspan fill="#9ece6a">████████████████████████████████</tspan><tspan fill="#c0caf5">     </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="498" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="516" fill="#9ece6a">╠══════════════════════════════════════════════════════════════╣</tspan>
     <tspan x="30" y="534" fill="#9ece6a">║</tspan><tspan fill="#565f89">  Built by Trav White, Neighbourhood CO (www.nbh.co)          </tspan><tspan fill="#9ece6a">║</tspan>

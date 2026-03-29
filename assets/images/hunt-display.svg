@@ -39,14 +39,14 @@
     <tspan x="30" y="272" fill="#3d59a1">║</tspan><tspan fill="#c0caf5">  M I S S I O N   C O N T R O L                               </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="290" fill="#3d59a1">╠══════════════════════════════════════════════════════════════╣</tspan>
     <tspan x="30" y="308" fill="#3d59a1">║</tspan><tspan fill="#c0caf5">  Wave 1 — Code Sweep                                         </tspan><tspan fill="#3d59a1">║</tspan>
-    <tspan x="30" y="326" fill="#3d59a1">║</tspan><tspan fill="#7aa2f7">    ◆ </tspan><tspan fill="#c0caf5">Build &amp; Tests        </tspan><tspan fill="#7aa2f7">◆ </tspan><tspan fill="#c0caf5">Security &amp; Auth                 </tspan><tspan fill="#3d59a1">║</tspan>
-    <tspan x="30" y="344" fill="#3d59a1">║</tspan><tspan fill="#7aa2f7">    ◆ </tspan><tspan fill="#c0caf5">Code Quality         </tspan><tspan fill="#7aa2f7">◆ </tspan><tspan fill="#c0caf5">Dependency Audit                </tspan><tspan fill="#3d59a1">║</tspan>
+    <tspan x="30" y="326" fill="#3d59a1">║</tspan><tspan fill="#7aa2f7">    ◆ </tspan><tspan fill="#c0caf5">Build &amp; Tests        </tspan><tspan fill="#7aa2f7">◆ </tspan><tspan fill="#c0caf5">Security &amp; Auth                  </tspan><tspan fill="#3d59a1">║</tspan>
+    <tspan x="30" y="344" fill="#3d59a1">║</tspan><tspan fill="#7aa2f7">    ◆ </tspan><tspan fill="#c0caf5">Code Quality         </tspan><tspan fill="#7aa2f7">◆ </tspan><tspan fill="#c0caf5">Dependency Audit                 </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="362" fill="#3d59a1">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="380" fill="#3d59a1">║</tspan><tspan fill="#c0caf5">  Wave 2 — Runtime Hunt                                       </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="398" fill="#3d59a1">║</tspan><tspan fill="#565f89">    ○ </tspan><tspan fill="#565f89">API &amp; Data           ○ UI/UX Visual                     </tspan><tspan fill="#3d59a1">║</tspan>
-    <tspan x="30" y="416" fill="#3d59a1">║</tspan><tspan fill="#565f89">    ○ </tspan><tspan fill="#565f89">Flow &amp; Integration   ○ A11y &amp; Perf                     </tspan><tspan fill="#3d59a1">║</tspan>
+    <tspan x="30" y="416" fill="#3d59a1">║</tspan><tspan fill="#565f89">    ○ </tspan><tspan fill="#565f89">Flow &amp; Integration   ○ A11y &amp; Perf                      </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="434" fill="#3d59a1">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#3d59a1">║</tspan>
-    <tspan x="30" y="452" fill="#3d59a1">║</tspan><tspan fill="#7aa2f7">  ◆ deployed  </tspan><tspan fill="#565f89">○ standby  </tspan><tspan fill="#9ece6a">✓ clean  </tspan><tspan fill="#f7768e">✗ findings               </tspan><tspan fill="#3d59a1">║</tspan>
+    <tspan x="30" y="452" fill="#3d59a1">║</tspan><tspan fill="#7aa2f7">  ◆ deployed  </tspan><tspan fill="#565f89">○ standby  </tspan><tspan fill="#9ece6a">✓ clean  </tspan><tspan fill="#f7768e">✗ findings                  </tspan><tspan fill="#3d59a1">║</tspan>
     <tspan x="30" y="470" fill="#3d59a1">╚══════════════════════════════════════════════════════════════╝</tspan>
   </text>
 </svg>
