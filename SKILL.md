@@ -1,6 +1,7 @@
 ---
 name: "bug-hunter"
 version: "1.2.0"
+model: "opus"
 description: "Bug Hunter -- iterative multi-layer QA with auto-detected stack, scaled agent swarm, convergence loop, and a safari mascot narrating the whole thing. Hunts down bugs across build, security, design, code, UI, APIs, data flows, a11y, dependencies, and migrations. Runs until the habitat is clean or escalates."
 argument-hint: "[--scope=all|build|security|design|code|ui|api|flow|a11y|deps|migration] [--diff-only] [--area=<path>] [--route=<path>] [--lite] [--full] [--fix=false] [--gate] [--format=markdown|sarif|json|github|terminal] [--generate-tests] [--max-runs=5] [--continue] [--report]"
 ---
