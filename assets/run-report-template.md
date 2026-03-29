@@ -5,53 +5,53 @@ Use this template when creating `.planning/qa/RUN-[N].md` during Step 4.
 ---
 
 ```markdown
-# Deep QA — Run [N]
+# Bug Hunter -- Hunt Log [N]
 
 **Timestamp**: [YYYY-MM-DD HH:MM AEST]
 **Branch**: [branch]
 **Mode**: [Lite | Standard | Full | Smart re-test]
-**Agents dispatched**: [list which agents ran]
+**Agents deployed**: [list which agents ran]
 **Duration**: [time taken]
-**Suppressions filtered**: [count]
+**Protected species filtered**: [count]
 
-## Summary
+## Haul Summary
 
-| Severity | Count | Fixed | Remaining |
-|----------|-------|-------|-----------|
-| P0 Blockers | [count] | [count] | [count] |
-| P1 Critical | [count] | [count] | [count] |
-| P2 Medium | [count] | [count] | [count] |
-| P3 Low (report only) | [count] | — | [count] |
+| Threat Level | Found | Wrangled | At Large |
+|-------------|-------|----------|----------|
+| P0 -- Habitat On Fire | [count] | [count] | [count] |
+| P1 -- Gonna Leave a Mark | [count] | [count] | [count] |
+| P2 -- Rough Around the Edges | [count] | [count] | [count] |
+| P3 -- She'll Be Right (report only) | [count] | -- | [count] |
 | **Total** | **[count]** | **[count]** | **[count]** |
 
-## Regressions
-[If any issues reappeared from previous runs]
+## Regressions -- Bugs That Played Dead
+[If any specimens escaped from previous runs]
 
-| # | File:Line | Category | Originally | Fixed In | Reappeared | Status |
-|---|-----------|----------|-----------|----------|------------|--------|
+| # | File:Line | Category | Original Threat | Caught In | Escaped In | Status |
+|---|-----------|----------|----------------|----------|------------|--------|
 | 1 | path:123 | security | P2 | Run 1 | Run 2 | ESCALATED TO P0 |
 
 ## Test Suite Results
-[PASSED (X tests) | FAILED — list failures | Not detected]
+[PASSED (X tests) | FAILED -- list failures | Not detected]
 
-## Issues
+## Specimens
 
-### P0 — Blockers
+### P0 -- Habitat On Fire
 | # | File:Line | Category | Agent | Description | Fix | Status |
 |---|-----------|----------|-------|-------------|-----|--------|
-| 1 | path:123 | build | build | ... | ... | FIXED / ESCALATED |
+| 1 | path:123 | build | build | ... | ... | CAUGHT / ESCALATED |
 
-### P1 — Critical
+### P1 -- Gonna Leave a Mark
 | # | File:Line | Category | Agent | Description | Fix | Status |
 |---|-----------|----------|-------|-------------|-----|--------|
-| 1 | path:123 | security | security | ... | ... | FIXED / ESCALATED |
+| 1 | path:123 | security | security | ... | ... | CAUGHT / ESCALATED |
 
-### P2 — Medium
+### P2 -- Rough Around the Edges
 | # | File:Line | Category | Agent | Description | Fix | Status |
 |---|-----------|----------|-------|-------------|-----|--------|
-| 1 | path:123 | code | quality | ... | ... | FIXED / SKIPPED |
+| 1 | path:123 | code | quality | ... | ... | CAUGHT / SKIPPED |
 
-### P3 — Low (report only)
+### P3 -- She'll Be Right (report only)
 | # | File:Line | Category | Agent | Description | Suggested Fix |
 |---|-----------|----------|-------|-------------|---------------|
 | 1 | path:123 | code | quality | ... | ... |
@@ -63,14 +63,14 @@ Use this template when creating `.planning/qa/RUN-[N].md` during Step 4.
 |---|-----------|--------|-----------|
 | 1 | __tests__/path.test.ts | src/path.ts:functionName | Unit test |
 
-## Fixes Applied
-[Detailed list of changes made during auto-fix]
+## Wrangling Log
+[Detailed list of fixes applied during this run]
 
-| # | File:Line | Change Description | Verified |
-|---|-----------|-------------------|----------|
+| # | File:Line | What Changed | Verified |
+|---|-----------|-------------|----------|
 | 1 | path:123 | Parameterized SQL query | Build passed |
 
-## Agent Output Files
+## Agent Reports
 - Build: .planning/qa/agents/build-run-[N].md
 - Security: .planning/qa/agents/security-run-[N].md
 - [list all agent files that were written]

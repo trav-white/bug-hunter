@@ -1,41 +1,41 @@
-# QA History Template
+# History Template
 
 Use this as the header when creating `.planning/qa/HISTORY.md` for the first time.
-Append one row per QA session. Never modify previous entries.
+Append one row per safari. Never modify previous entries.
 
 ---
 
 ```markdown
-# Deep QA History
+# Bug Hunter -- Safari Log
 
-Quality tracking across QA sessions. One row per session, append-only.
+Quality tracking across expeditions. One row per safari, append-only.
 
-| Date | Branch | Stack | Mode | Runs | P0 | P1 | P2 | P3 | Found | Fixed | Remaining | Result | Regressions | Duration |
-|------|--------|-------|------|------|----|----|----|----|----- |-------|-----------|--------|-------------|----------|
+| Date | Branch | Habitat | Mode | Runs | P0 | P1 | P2 | P3 | Found | Wrangled | At Large | Verdict | Escapes | Duration |
+|------|--------|---------|------|------|----|----|----|----|----- |----------|----------|---------|---------|----------|
 ```
 
 ## Column Definitions
 
 | Column | Description |
 |--------|-------------|
-| Date | Session date (YYYY-MM-DD) |
+| Date | Safari date (YYYY-MM-DD) |
 | Branch | Git branch name |
-| Stack | Detected tech stack (abbreviated) |
+| Habitat | Detected tech stack (abbreviated) |
 | Mode | Lite / Standard / Full |
 | Runs | Number of iterations |
-| P0-P3 | Total issues found at each severity |
-| Found | Total issues found across all runs |
-| Fixed | Total issues auto-fixed |
-| Remaining | Issues remaining after all runs |
-| Result | PASSED / PASSED WITH NOTES / ESCALATED |
-| Regressions | Count of fix-then-reappear issues |
-| Duration | Total session time |
+| P0-P3 | Total specimens found at each threat level |
+| Found | Total specimens found across all runs |
+| Wrangled | Total specimens auto-fixed |
+| At Large | Specimens remaining after all runs |
+| Verdict | PASSED / PASSED WITH NOTES / ESCALATED |
+| Escapes | Count of wrangled-then-escaped specimens (regressions) |
+| Duration | Total safari time |
 
 ## Trend Analysis
 
-When reviewing history, look for:
-- **Rising issue counts** — code quality may be declining, consider stricter rules or earlier QA
-- **Recurring categories** — if security issues appear every session, consider adding linting rules
-- **Regression frequency** — frequent regressions suggest fragile code areas that need refactoring
-- **Convergence speed** — if runs-to-converge is increasing, the codebase may be getting harder to QA
-- **Mode escalation** — if Lite mode keeps finding issues, consider defaulting to Standard
+When reviewing the safari log, look for:
+- **Rising specimen counts** -- the habitat may be getting wilder. Consider stricter rules or earlier hunts
+- **Recurring categories** -- if security specimens appear every safari, add linting rules to catch them earlier
+- **Escape frequency** -- frequent escapes suggest fragile code areas that need refactoring
+- **Convergence speed** -- if runs-to-converge is increasing, the habitat may be getting harder to clear
+- **Mode escalation** -- if Lite mode keeps finding specimens, consider defaulting to Standard

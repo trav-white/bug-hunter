@@ -1,5 +1,31 @@
 # Changelog
 
+## v1.2.0 (2026-03-29)
+
+### The personality update -- Bug Hunter finds its voice
+
+### Added
+- **Voice & Tone section** in SKILL.md -- instructs Claude to narrate QA sessions with Steve Irwin energy, safari metaphors, and Australian flair throughout all terminal output
+- Steve Irwin-style severity flavour text (P0: "the habitat is on fire", P3: "she'll be right")
+
+### Changed
+- **Rebranded to Bug Hunter** -- skill title, commit message prefixes (`[BugHunter]`), and all user-facing language updated
+- **README.md** -- complete rewrite with puns, safari metaphors, and personality. Same info, more fun
+- **SKILL.md step headers** themed: Base Camp, Gear Check, Deploy the Hunting Party, Collect Specimens, Log the Hunt, Wrangle Specimens, Check the Traps, Expedition Debrief, Protected Species, Rules of the Hunt
+- **All 5 templates** rewritten with personality:
+  - Session: "Safari Mission Briefing" with Hunting Party, Gear Check, Safari Log
+  - Run report: "Hunt Log" with Haul Summary, threat-level section headers, Wrangling Log
+  - Summary: "Expedition Report" with "Specimens Wrangled", "Still At Large", "Field Notes"
+  - History: "Safari Log" with habitat/verdict/escapes columns
+  - Suppressed: "Protected Species" -- because some bugs are features, mate
+
+### Fixed
+- Splash screen character now wears safari hat (was missing in v1.1.0)
+- Victory display legs symmetric (`\|| || ||/`)
+- Victory/Escalate results line uses compact placeholders with proper right-padding
+
+---
+
 ## v1.1.0 (2026-03-29)
 
 ### Added

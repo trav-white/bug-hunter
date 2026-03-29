@@ -5,18 +5,18 @@ Use this template when creating `.planning/qa/SUMMARY.md` during Step 7.
 ---
 
 ```markdown
-# Deep QA Summary
+# Bug Hunter -- Expedition Report
 
-**Session**: [start time] — [end time]
+**Safari**: [start time] -- [end time]
 **Branch**: [branch]
-**Stack**: [detected stack]
+**Habitat**: [detected stack]
 **Mode**: [Lite | Standard | Full]
-**Result**: PASSED | PASSED WITH NOTES | ESCALATED
-**Iterations**: [N]
-**Total issues found**: [count]
-**Total issues fixed**: [count]
-**Remaining**: [count] (with details if any)
-**Suppressions active**: [count]
+**Verdict**: PASSED | PASSED WITH NOTES | ESCALATED
+**Runs**: [N]
+**Total specimens found**: [count]
+**Total specimens wrangled**: [count]
+**Still at large**: [count] (with details if any)
+**Protected species active**: [count]
 
 ## Quality Gate
 [If --gate was used]
@@ -26,8 +26,8 @@ Use this template when creating `.planning/qa/SUMMARY.md` during Step 7.
 
 ## Convergence
 
-| Run | Mode | Agents | P0 | P1 | P2 | P3 | Total | Fixed |
-|-----|------|--------|----|----|----|----|-------|-------|
+| Run | Mode | Agents | P0 | P1 | P2 | P3 | Total | Wrangled |
+|-----|------|--------|----|----|----|----|-------|----------|
 | 1 | Full | 1-4,9 | X | X | X | X | X | X |
 | 2 | Smart | 1,4 | X | X | X | X | X | X |
 | ... | | | | | | | | |
@@ -37,12 +37,12 @@ Use this template when creating `.planning/qa/SUMMARY.md` during Step 7.
 - **Result**: PASSED (X tests) | FAILED (X/Y) | Not detected
 - **Failures**: [list if any]
 
-## Regressions Detected
-[Issues that were fixed then reappeared — these indicate fragile fixes]
-- [file:line — description — originally fixed in Run N, reappeared in Run M]
+## Regressions -- Bugs That Played Dead
+[Specimens that were wrangled then escaped -- these indicate fragile fixes]
+- [file:line -- description -- originally caught in Run N, escaped in Run M]
 
-## Issues Resolved
-[Grouped by category — brief description of each fix]
+## Specimens Wrangled
+[Grouped by category -- what we caught and how]
 
 ### Build
 - [description]
@@ -59,24 +59,24 @@ Use this template when creating `.planning/qa/SUMMARY.md` during Step 7.
 ### Migrations
 - [description]
 
-## Remaining Issues (if any)
-[Issues that couldn't be auto-fixed with explanation]
+## Still At Large (if any)
+[Specimens that got away -- couldn't auto-wrangle, needs a human]
 
-| # | File:Line | Severity | Category | Description | Why not fixed |
-|---|-----------|----------|----------|-------------|---------------|
-| 1 | path:123 | P1 | security | ... | Ambiguous fix — needs human decision |
+| # | File:Line | Threat | Category | Description | Why it got away |
+|---|-----------|--------|----------|-------------|-----------------|
+| 1 | path:123 | P1 | security | ... | Ambiguous fix -- needs human judgement |
 
-## Suppressed Issues
-[Count of issues filtered by suppression rules]
-- [X] issues suppressed (see .planning/qa/suppressed.md for details)
+## Protected Species
+[Specimens filtered by suppression rules]
+- [X] specimens protected (see .planning/qa/suppressed.md for details)
 
 ## Test Stubs Generated
 [If --generate-tests was used]
 - [X] test stubs generated in [directory]
 - Run `[test command]` to see TODOs
 
-## Recommendations
-[Architectural concerns, tech debt, or patterns noticed during QA — not issues, but observations]
+## Field Notes
+[Observations from the expedition -- architectural concerns, patterns noticed, tech debt spotted. Not bugs, just things worth knowing]
 - [observation]
 - [observation]
 ```
