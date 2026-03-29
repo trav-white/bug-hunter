@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.2.0-blue?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.3.0-blue?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/Claude_Code-skill-7c3aed?style=flat-square" alt="Claude Code Skill">
   <img src="https://img.shields.io/badge/agents-10-green?style=flat-square" alt="10 Agents">
   <img src="https://img.shields.io/badge/license-MIT-gray?style=flat-square" alt="License">

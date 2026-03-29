@@ -1,5 +1,28 @@
 # Changelog
 
+## v1.3.0 (2026-03-29)
+
+### Smart model selection + terminal rendering fixes
+
+### Added
+- **Smart model selection** -- agents now get the right model automatically. Opus for orchestrator, security (Agent 2), and code quality (Agent 4). Sonnet for all other agents. Lite mode uses opus for its single agent
+- **MIT LICENSE** file
+
+### Changed
+- **Command renamed** from `/deep-qa` to `/bug-hunter` (frontmatter, internal refs, install instructions, SARIF identifiers)
+- **Product name** -- all "Deep QA" references renamed to "Bug Hunter" (kept as subtitle descriptor only)
+- **GitHub repo** renamed from `deep-qa-skill` to `trav-white/bug-hunter`
+- **ASCII terminal frames** -- all Unicode box-drawing characters (`╔═╗║━`) replaced with ASCII equivalents (`+--|`) for consistent rendering across terminal fonts
+- **Safari Trail spacing** -- widened segments from 6-char to 8-char columns so labels (especially WRANGLE) align properly under their dots
+- **Hero banner** redesigned with simplified character art that renders cleanly
+
+### Fixed
+- 23 misaligned box art lines in references/bug-hunter.md (all 64 chars)
+- 16 misaligned SVG inner content widths across 3 SVGs
+- Right border wobble in framed displays caused by Unicode chars rendering at inconsistent widths
+
+---
+
 ## v1.2.0 (2026-03-29)
 
 ### The personality update -- Bug Hunter finds its voice

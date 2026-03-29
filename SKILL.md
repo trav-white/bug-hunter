@@ -1,7 +1,6 @@
 ---
 name: "bug-hunter"
-version: "1.2.0"
-model: "opus"
+version: "1.3.0"
 description: "Bug Hunter -- iterative multi-layer QA with auto-detected stack, scaled agent swarm, convergence loop, and a safari mascot narrating the whole thing. Hunts down bugs across build, security, design, code, UI, APIs, data flows, a11y, dependencies, and migrations. Runs until the habitat is clean or escalates."
 argument-hint: "[--scope=all|build|security|design|code|ui|api|flow|a11y|deps|migration] [--diff-only] [--area=<path>] [--route=<path>] [--lite] [--full] [--fix=false] [--gate] [--format=markdown|sarif|json|github|terminal] [--generate-tests] [--max-runs=5] [--continue] [--report]"
 ---
@@ -18,8 +17,8 @@ Read `references/bug-hunter.md` at session start. The Bug Hunter is a full termi
 
 **Visual components** (defined in `references/bug-hunter.md`):
 
-1. **Safari Trail** — Progress breadcrumb shown at EVERY stage (●━━◉━━○ format). Shows where you are in the hunt flow.
-2. **Mission Control** — Agent dispatch board with wave status, deployed/standby indicators. Double-border `╔═╗` card.
+1. **Safari Trail** — Progress breadcrumb shown at EVERY stage (●--◉--○ format). Shows where you are in the hunt flow.
+2. **Mission Control** — Agent dispatch board with wave status, deployed/standby indicators. Framed `+--+` card.
 3. **Threat Level Meter** — Severity bar (████░░░░) rated EXTREME/HIGH/MODERATE/LOW/ALL CLEAR.
 4. **Bug Trophy Case** — Severity breakdown card with proportional density bars (████/▓▓▓▓/░░░░ per level).
 5. **Wrangling Progress** — Per-bug fix tracker with progress bar and ✓/◆/○ status indicators.
@@ -45,7 +44,7 @@ Read `references/bug-hunter.md` at session start. The Bug Hunter is a full termi
 - Pick ONE quote randomly per display, never repeat within a session
 - Quotes with `{braces}` are templates — fill in actual values
 - Credit line appears on splash and final summary: `Built by Trav White, Neighbourhood CO (www.nbh.co)`
-- Box width: 62 characters between `║` borders (64 total including borders)
+- Box width: 62 characters between `|` borders (64 total including borders)
 
 ---
 
@@ -212,6 +211,22 @@ Count the scoped files to select the right mode:
 The `--lite` flag forces lite mode regardless. The `--full` flag forces full swarm regardless.
 The `--area` flag implies `--full` unless `--lite` is explicitly set.
 
+### 0.8.1 — Select Agent Models
+
+Assign models to each agent based on mode. This balances depth on critical agents with speed on focused ones.
+
+**Lite mode**: The single combined agent runs on `opus` (small scope benefits from depth).
+
+**Standard/Full mode**: The orchestrator stays on whatever model the user is running. Assign agent models:
+
+| Agent | Model | Reason |
+|-------|-------|--------|
+| Agent 2 (Security & Auth) | `opus` | Security bugs are expensive to miss |
+| Agent 4 (Code Quality) | `opus` | Pattern recognition needs depth |
+| All other agents (1, 3, 5-10) | `sonnet` | Focused analysis where speed matters |
+
+Record model assignments in SESSION.md under the Hunting Party section.
+
 ### 0.9 — Run Existing Test Suite (Fail Fast)
 
 **Before spawning any QA agents**, run the project's existing tests:
@@ -308,7 +323,7 @@ Select agents based on detected stack, scope flags, and project config.
 
 ### Lite Mode
 
-In lite mode, dispatch a **single combined agent** using the prompt in `agents/lite.md`. After it returns, skip to Step 3 (Collect Results).
+In lite mode, dispatch a **single combined agent** using the prompt in `agents/lite.md` with `model: "opus"` (per Step 0.8.1). After it returns, skip to Step 3 (Collect Results).
 
 ### Bug Hunter: Hunt Display
 
@@ -323,6 +338,7 @@ When constructing each agent's prompt:
 2. Fill in the template variables: `[project directory]`, `[detected stack]`, `[list files]`, `[N]`, etc.
 3. Inject any **custom rules** from project config that apply to this agent's category
 4. Inject **severity overrides** from project config
+5. Set the agent's `model` parameter based on the assignments from Step 0.8.1
 
 ### Standard/Full Mode — Wave 2
 
@@ -532,7 +548,7 @@ If `--gate` is set, after the final summary:
 
 Display the **DISPLAY: Final -- Victory** or **DISPLAY: Final -- Escalate** composite from `references/bug-hunter.md`:
 
-- **PASSED**: Safari Trail (DONE) + framed `╔═╗` card with VICTORY character, results summary, quote, Stats Dashboard (with visual `████` bars and capture rate), and credit line.
+- **PASSED**: Safari Trail (DONE) + framed `+--+` card with VICTORY character, results summary, quote, Stats Dashboard (with visual `████` bars and capture rate), and credit line.
 - **ESCALATED**: Safari Trail (DONE) + framed card with ESCALATE character, remaining specimens list (with STUCK/UNFIXED/HUMAN REVIEW status), Stats Dashboard, and credit line.
 
 This is the last thing the user sees -- render it as a single impressive code block.
