@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 580" fill="none">
+  <defs>
+    <linearGradient id="tbg3" x1="0" y1="0" x2="0" y2="580">
+      <stop offset="0%" stop-color="#1a1b26"/>
+      <stop offset="100%" stop-color="#16161e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Terminal window -->
+  <rect width="720" height="580" rx="10" fill="url(#tbg3)"/>
+
+  <!-- Title bar -->
+  <rect width="720" height="36" rx="10" fill="#24283b"/>
+  <rect y="26" width="720" height="10" fill="#24283b"/>
+  <circle cx="20" cy="18" r="6" fill="#f7768e"/>
+  <circle cx="40" cy="18" r="6" fill="#e0af68"/>
+  <circle cx="60" cy="18" r="6" fill="#9ece6a"/>
+  <text font-family="'SF Pro', 'Helvetica Neue', sans-serif" font-size="13" fill="#565f89" x="330" y="23" text-anchor="middle">Bug Hunter -- Expedition Debrief</text>
+
+  <!-- Terminal content -->
+  <text font-family="'Courier New', 'SF Mono', monospace" font-size="13" xml:space="preserve">
+    <!-- Safari Trail -->
+    <tspan x="30" y="62" fill="#565f89">SETUP</tspan><tspan fill="#3d59a1">━━━━</tspan><tspan fill="#565f89">HUNT</tspan><tspan fill="#3d59a1">━━━━</tspan><tspan fill="#565f89">FOUND</tspan><tspan fill="#3d59a1">━━━━</tspan><tspan fill="#565f89">WRANGLE</tspan><tspan fill="#3d59a1">━━━━</tspan><tspan fill="#565f89">VERIFY</tspan><tspan fill="#3d59a1">━━━━</tspan><tspan fill="#9ece6a">DONE</tspan>
+    <tspan x="30" y="78" fill="#9ece6a">  ●━━━━━━━━●━━━━━━━━●━━━━━━━━●━━━━━━━━●━━━━━━━━◉</tspan>
+
+    <!-- Victory Card -->
+    <tspan x="30" y="102" fill="#9ece6a">╔══════════════════════════════════════════════════════════════╗</tspan>
+    <tspan x="30" y="120" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="138" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">         ___                                                  </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="156" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">        / * \                                                 </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="174" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    .----------.                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="192" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    | ^^    ^^ |</tspan><tspan fill="#c0caf5">      Deep QA PASSED                          </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="210" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    |    __    |</tspan><tspan fill="#c0caf5">      2 runs | 7 found | 7 fixed              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="228" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    '----------'                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="246" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">     \|| || ||/</tspan><tspan fill="#c0caf5">       P0: 0  P1: 0  P2: 0 remaining          </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="264" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="282" fill="#9ece6a">║</tspan><tspan fill="#e0af68">    "What a beauty! Not a single P0 left in the wild!"        </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="300" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="318" fill="#9ece6a">╠══════════════════════════════════════════════════════════════╣</tspan>
+    <tspan x="30" y="336" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  B U G   H U N T E R   S T A T S                            </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="354" fill="#9ece6a">╠══════════════════════════════════════════════════════════════╣</tspan>
+    <tspan x="30" y="372" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="390" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Safari missions    3   </tspan><tspan fill="#7aa2f7">████████████████</tspan><tspan fill="#c0caf5">                      </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="408" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Bugs captured     12   </tspan><tspan fill="#7aa2f7">████████████████████████████████</tspan><tspan fill="#c0caf5">  </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="426" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Clean sweeps       2   </tspan><tspan fill="#7aa2f7">██████████</tspan><tspan fill="#c0caf5">                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="444" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Biggest haul       7   </tspan><tspan fill="#7aa2f7">██████████████████</tspan><tspan fill="#c0caf5">                  </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="462" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Current streak     2   </tspan><tspan fill="#7aa2f7">██████████</tspan><tspan fill="#c0caf5">                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="480" fill="#9ece6a">║</tspan><tspan fill="#c0caf5">  Capture rate     100%  </tspan><tspan fill="#9ece6a">████████████████████████████████</tspan><tspan fill="#c0caf5">  </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="498" fill="#9ece6a">║</tspan><tspan fill="#16161e">                                                              </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="516" fill="#9ece6a">╠══════════════════════════════════════════════════════════════╣</tspan>
+    <tspan x="30" y="534" fill="#9ece6a">║</tspan><tspan fill="#565f89">  Built by Trav White, Neighbourhood CO (www.nbh.co)          </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="552" fill="#9ece6a">╚══════════════════════════════════════════════════════════════╝</tspan>
+  </text>
+</svg>
