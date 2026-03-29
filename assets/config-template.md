@@ -1,11 +1,11 @@
 # Project QA Config Template
 
-Copy this to `.planning/qa/config.md` in your project and customise. Deep QA reads this file during session setup and applies overrides to all agents.
+Copy this to `.planning/qa/config.md` in your project and customise. Bug Hunter reads this file during session setup and applies overrides to all agents.
 
 ---
 
 ```markdown
-# Deep QA — Project Configuration
+# Bug Hunter — Project Configuration
 
 ## Defaults
 

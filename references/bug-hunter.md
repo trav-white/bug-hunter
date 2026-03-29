@@ -627,7 +627,7 @@ Safari Trail (DONE stage) + Full framed card with VICTORY character, results sum
 ║         ___                                                  ║
 ║        / * \                                                 ║
 ║    .----------.                                              ║
-║    | ^^    ^^ |      Deep QA PASSED                          ║
+║    | ^^    ^^ |      Bug Hunter PASSED                       ║
 ║    |    __    |      {r} runs | {f} found | {x} fixed        ║
 ║    '----------'                                              ║
 ║     \|| || ||/       P0: 0  P1: 0  P2: 0 remaining           ║
@@ -664,7 +664,7 @@ Same frame structure but with ESCALATE character and remaining issue summary:
 ║         ___                                                  ║
 ║        / ~ \                                                 ║
 ║    .----------.                                              ║
-║    | ??    ?? |      Deep QA ESCALATED                       ║
+║    | ??    ?? |      Bug Hunter ESCALATED                    ║
 ║    |    ~~    |      {r} runs | {f} found | {x} fixed        ║
 ║    '----------'                                              ║
 ║     ||| || |||       P0: {n}  P1: {n}  P2: {n} remaining     ║

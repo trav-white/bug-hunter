@@ -1,6 +1,6 @@
 # Critical Rules
 
-These rules govern all Deep QA behaviour. Agents and the orchestrator must follow them without exception.
+These rules govern all Bug Hunter behaviour. Agents and the orchestrator must follow them without exception.
 
 ---
 

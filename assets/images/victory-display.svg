@@ -29,7 +29,7 @@
     <tspan x="30" y="138" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">         ___                                                  </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="156" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">        / * \                                                 </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="174" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    .----------.                                              </tspan><tspan fill="#9ece6a">║</tspan>
-    <tspan x="30" y="192" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    | ^^    ^^ |</tspan><tspan fill="#c0caf5">      Deep QA PASSED                          </tspan><tspan fill="#9ece6a">║</tspan>
+    <tspan x="30" y="192" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    | ^^    ^^ |</tspan><tspan fill="#c0caf5">      Bug Hunter PASSED                       </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="210" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    |    __    |</tspan><tspan fill="#c0caf5">      2 runs | 7 found | 7 fixed              </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="228" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">    '----------'                                              </tspan><tspan fill="#9ece6a">║</tspan>
     <tspan x="30" y="246" fill="#9ece6a">║</tspan><tspan fill="#9ece6a">     \|| || ||/</tspan><tspan fill="#c0caf5">       P0: 0  P1: 0  P2: 0 remaining           </tspan><tspan fill="#9ece6a">║</tspan>

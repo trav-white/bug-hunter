@@ -1,11 +1,11 @@
 ---
-description: "Initialize Deep QA for a project — detect stack, create config, set up QA directory structure with sensible defaults."
+description: "Initialize Bug Hunter for a project — detect stack, create config, set up QA directory structure with sensible defaults."
 argument-hint: "[--minimal] [--strict]"
 ---
 
-# Deep QA Setup
+# Bug Hunter Setup
 
-Interactive setup wizard that initializes Deep QA for the current project. Run this once per project to configure QA behaviour.
+Interactive setup wizard that initializes Bug Hunter for the current project. Run this once per project to configure QA behaviour.
 
 ## Arguments
 
@@ -171,7 +171,7 @@ Write `.planning/qa/HISTORY.md` from `assets/history-template.md` (header only, 
 Print the final configuration:
 
 ```
-Deep QA initialized for [project name]
+Bug Hunter initialized for [project name]
 
   Config:     .planning/qa/config.md
   History:    .planning/qa/HISTORY.md
@@ -196,4 +196,4 @@ Offer to commit the QA config files:
 Commit QA config to git? (y/n)
 ```
 
-If yes, commit with message: `[PROJECT-CODE] Initialize Deep QA configuration`
+If yes, commit with message: `[PROJECT-CODE] Initialize Bug Hunter configuration`

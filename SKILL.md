@@ -443,7 +443,7 @@ For each fix:
 If `--generate-tests` is enabled, after fixing issues:
 1. Identify functions/components in changed files that lack test coverage
 2. Generate test stub files in the project's test directory following existing test patterns
-3. Mark stubs clearly as `// TODO: Deep QA generated stub — fill in assertions`
+3. Mark stubs clearly as `// TODO: Bug Hunter generated stub — fill in assertions`
 4. Report generated stubs in the run report under a "Test Stubs Generated" section
 5. Do NOT count missing tests as issues — stubs are supplementary, not blocking
 
